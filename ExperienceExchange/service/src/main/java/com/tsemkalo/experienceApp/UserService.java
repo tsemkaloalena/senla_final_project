@@ -10,5 +10,5 @@ public interface UserService extends AbstractService<User>, UserDetailsService {
 
 	String changeUsername(String currentUsername, String newUsername, String password);
 
-	Long editInfo(String currentUsername, String name, String surname);
+	Long editInfo(String currentUsername, User editedUser);
 }

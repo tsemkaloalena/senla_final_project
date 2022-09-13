@@ -26,6 +26,11 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserDao> implemen
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	/**
+	 * @param username username of the searched user
+	 * @return found user
+	 * @throws UsernameNotFoundException if user is not found
+	 */
 	@Override
 	public User loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userDao.getUserByUsername(username);
@@ -35,16 +40,27 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserDao> implemen
 		return user;
 	}
 
+	/**
+	 * @param user user entity
+	 * @return added to database user entity
+	 * @throws UserExistsException if user with given username already exists
+	 */
 	@Override
 	public User saveUser(User user) {
 		if (userDao.getUserByUsername(user.getUsername()) != null) {
 			throw new UserExistsException(user.getUsername());
 		}
+		user.setEmail(user.getEmail()); // check is built into the setter
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		userDao.create(user);
 		return user;
 	}
 
+	/**
+	 * @param currentUsername username of current user
+	 * @param oldPassword old password for checking with current
+	 * @param newPassword new password to which we should change the current one
+	 */
 	@Override
 	public void changePassword(String currentUsername, String oldPassword, String newPassword) {
 		if (oldPassword == null) {
@@ -61,6 +77,12 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserDao> implemen
 		throw new AccessDeniedException("Your old password is not correct.");
 	}
 
+	/**
+	 * @param currentUsername username of current user
+	 * @param newUsername new username
+	 * @param password password for checking with current
+	 * @return message with new generated token
+	 */
 	@Override
 	public String changeUsername(String currentUsername, String newUsername, String password) {
 		if (newUsername == null) {
@@ -86,18 +108,27 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserDao> implemen
 		throw new AccessDeniedException(user.getUsername() + "'s password is not correct.");
 	}
 
+	/**
+	 * @param currentUsername username of current user
+	 * @param editedUser user entity with fields that should be changed
+	 * @return id of the edited user
+	 */
 	@Override
-	public Long editInfo(String currentUsername, String name, String surname) {
+	public Long editInfo(String currentUsername, User editedUser) {
 		User user = loadUserByUsername(currentUsername);
-		if (name == null && surname == null) {
+		if (editedUser.getName() == null && editedUser.getSurname() == null) {
 			throw new IncorrectDataException("You didn't change any data");
 		}
-		if (name != null) {
-			user.setName(name);
+		if (editedUser.getEmail() != null) {
+			user.setEmail(editedUser.getEmail());
 		}
-		if (surname != null) {
-			user.setSurname(surname);
+		if (editedUser.getName() != null) {
+			user.setName(editedUser.getName());
 		}
+		if (editedUser.getSurname() != null) {
+			user.setSurname(editedUser.getSurname());
+		}
+
 		return user.getId();
 	}
 }

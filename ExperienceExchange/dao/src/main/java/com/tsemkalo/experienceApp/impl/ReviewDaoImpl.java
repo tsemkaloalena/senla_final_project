@@ -22,7 +22,10 @@ public class ReviewDaoImpl extends AbstractDaoImpl<Review> implements ReviewDao 
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Review> criteriaQuery = criteriaBuilder.createQuery(Review.class);
 		Root<Review> rootEntry = criteriaQuery.from(Review.class);
-		CriteriaQuery<Review> reviews = criteriaQuery.select(rootEntry).where(criteriaBuilder.equal(rootEntry.get(item).get("id"), itemId));
+		CriteriaQuery<Review> reviews = criteriaQuery.select(rootEntry)
+				.where(criteriaBuilder.equal(
+						rootEntry.get(item).get("id"), itemId
+				));
 		return entityManager.createQuery(reviews).getResultList();
 	}
 
@@ -42,7 +45,10 @@ public class ReviewDaoImpl extends AbstractDaoImpl<Review> implements ReviewDao 
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Review> criteriaQuery = criteriaBuilder.createQuery(Review.class);
 		Root<Review> rootEntry = criteriaQuery.from(Review.class);
-		CriteriaQuery<Review> reviews = criteriaQuery.select(rootEntry).where(criteriaBuilder.equal(rootEntry.get("lesson").get("course").get("id"), courseId));
+		CriteriaQuery<Review> reviews = criteriaQuery.select(rootEntry)
+				.where(criteriaBuilder.equal(
+						rootEntry.get("lesson").get("course").get("id"), courseId)
+				);
 		return entityManager.createQuery(reviews).getResultList();
 	}
 }

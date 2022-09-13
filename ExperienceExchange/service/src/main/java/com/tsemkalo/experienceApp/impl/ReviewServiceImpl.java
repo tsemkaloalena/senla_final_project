@@ -1,5 +1,7 @@
 package com.tsemkalo.experienceApp.impl;
 
+import com.tsemkalo.experienceApp.CourseDao;
+import com.tsemkalo.experienceApp.LessonDao;
 import com.tsemkalo.experienceApp.ReviewDao;
 import com.tsemkalo.experienceApp.ReviewService;
 import com.tsemkalo.experienceApp.SubscriptionDao;
@@ -27,16 +29,34 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, ReviewDao> im
 	@Autowired
 	private SubscriptionDao subscriptionDao;
 
+	@Autowired
+	private CourseDao courseDao;
+
+	@Autowired
+	private LessonDao lessonDao;
+
+	/**
+	 * @param lessonId id of the lesson
+	 * @return all reviews written about given lesson
+	 */
 	@Override
 	public List<Review> getLessonReviews(Long lessonId) {
 		return reviewDao.getLessonReviews(lessonId);
 	}
 
+	/**
+	 * @param courseId id of the course
+	 * @return all reviews written about given course
+	 */
 	@Override
 	public List<Review> getCourseReviews(Long courseId) {
 		return reviewDao.getCourseReviews(courseId);
 	}
 
+	/**
+	 * @param courseId id of the course
+	 * @return all reviews written about lessons which belong to given course
+	 */
 	@Override
 	public List<Review> getCourseLessonsReviews(Long courseId) {
 		return reviewDao.getCourseLessonsReviews(courseId);
@@ -46,13 +66,18 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, ReviewDao> im
 		Lesson lesson = review.getLesson();
 		Course course = review.getCourse();
 		if (lesson != null) {
-			lesson.countAverageRating();
+			lessonDao.countAverageRating(lesson.getId());
 		}
 		if (course != null) {
-			course.countAverageRating();
+			courseDao.countAverageRating(course.getId());
 		}
 	}
 
+	/**
+	 * @param currentUsername username of current user (the user is a student)
+	 * @param review review that should be added to database
+	 * @return id of the new review
+	 */
 	@Override
 	public Long createReview(String currentUsername, Review review) {
 		User user = userDao.getUserByUsername(currentUsername);
@@ -79,6 +104,10 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, ReviewDao> im
 		return review.getId();
 	}
 
+	/**
+	 * @param currentUsername username of current user (the user is a student)
+	 * @param editedReview review entity with fields that should be changed
+	 */
 	@Override
 	public void editReview(String currentUsername, Review editedReview) {
 		User user = userDao.getUserByUsername(currentUsername);
@@ -100,6 +129,10 @@ public class ReviewServiceImpl extends AbstractServiceImpl<Review, ReviewDao> im
 		}
 	}
 
+	/**
+	 * @param currentUsername username of current user (the user is a student)
+	 * @param reviewId id of the review that should be deleted
+	 */
 	@Override
 	public void deleteReview(String currentUsername, Long reviewId) {
 		User user = userDao.getUserByUsername(currentUsername);

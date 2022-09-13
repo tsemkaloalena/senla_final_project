@@ -25,12 +25,21 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class Course extends AbstractEntity {
+	/**
+	 * Theme field
+	 */
 	@Column
 	private String theme;
 
+	/**
+	 * Subject field
+	 */
 	@Column
 	private String subject;
 
+	/**
+	 * Lesson status enum field
+	 */
 	@Column
 	@Enumerated(EnumType.STRING)
 	private LessonStatus status;
@@ -39,38 +48,84 @@ public class Course extends AbstractEntity {
 	@Enumerated(EnumType.STRING)
 	private OnlineType online;
 
+	/**
+	 * Address field
+	 */
 	@Column
 	private String address;
 
+	/**
+	 * Teacher field
+	 */
 	@OneToOne
 	@JoinColumn(name = "teacher_id")
 	private User teacher;
 
+	/**
+	 * Field for lesson type designation (is it group or individual)
+	 */
 	@Column
 	private Boolean individual;
 
+	/**
+	 * Cost field
+	 */
 	@Column
 	private Integer cost;
 
+	/**
+	 * Field for holding date of the first lesson
+	 */
 	@Column
 	private LocalDateTime startDate;
 
+	/**
+	 * Field for holding date of the last lesson
+	 */
 	@Column
 	private LocalDateTime finishDate;
 
+	/**
+	 * Description field
+	 */
 	@Column
 	private String description;
 
+	/**
+	 * Field for holding average rating among reviews
+	 */
 	@Column
 	private Double averageRating;
 
+	/**
+	 * List for holding all lessons belonging to this course
+	 */
 	@OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
 	@OrderBy("lesson_date asc")
 	private List<Lesson> lessons;
 
+	/**
+	 * List for holding all reviews
+	 */
 	@OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
 	private List<Review> reviews;
 
+	/**
+	 * Constructor - new lesson creating with given values
+	 *
+	 * @param theme         theme of the lesson
+	 * @param subject       subject of the lesson
+	 * @param status        is the course started, finished and etc
+	 * @param online        is the course online or offline
+	 * @param address       address of the course, if null, then the course is online
+	 * @param teacher       teacher and owner of the course
+	 * @param individual    is the course group or individual
+	 * @param cost          summery cost for all lessons in this course
+	 * @param startDate     date of the first lesson
+	 * @param finishDate    date of the last lesson
+	 * @param description   curriculum information
+	 * @param averageRating average rating among reviews
+	 */
 	public Course(String theme, String subject, LessonStatus status, OnlineType online, String address, User teacher, Boolean individual, Integer cost, LocalDateTime startDate, LocalDateTime finishDate, String description, Double averageRating) {
 		this.theme = theme;
 		this.subject = subject;
@@ -86,18 +141,6 @@ public class Course extends AbstractEntity {
 		this.averageRating = averageRating;
 	}
 
-	public void setOnline() {
-		Boolean onlineExists = getLessons().stream().anyMatch(lesson -> OnlineType.ONLINE.equals(lesson.getOnline()));
-		Boolean offlineExists = getLessons().stream().anyMatch(lesson -> OnlineType.OFFLINE.equals(lesson.getOnline()));
-		if (onlineExists && offlineExists) {
-			this.online = OnlineType.PARTLY_ONLINE;
-		} else if (offlineExists) {
-			this.online = OnlineType.OFFLINE;
-		} else {
-			this.online = OnlineType.ONLINE;
-		}
-	}
-
 	public Integer getNumberOfLessons() {
 		return getLessons().size();
 	}
@@ -107,41 +150,6 @@ public class Course extends AbstractEntity {
 			return null;
 		}
 		return getLessons().get(0).getFreePlacesLeft();
-	}
-
-	public Double getSalary() {
-		if (getLessons().isEmpty() || getLessons().get(0).getSalary() == null) {
-			return null;
-		}
-		return getLessons().stream().map(Lesson::getSalary).mapToDouble(Double::doubleValue).sum();
-	}
-
-	public void countAverageRating() {
-		if (reviews.isEmpty()) {
-			averageRating = null;
-		} else {
-			averageRating = reviews.stream().map(Review::getRating).mapToDouble(Integer::doubleValue).sum() / reviews.size();
-		}
-	}
-
-	public void countCost() {
-		if (getLessons().isEmpty()) {
-			this.cost = null;
-		} else {
-			this.cost = getLessons().stream().map(Lesson::getCost).mapToInt(Integer::intValue).sum();
-		}
-	}
-
-	public void countFinishDate() {
-		if (!getLessons().isEmpty()) {
-			setFinishDate(getLessons().stream().map(lesson -> lesson.getLessonDate().plusMinutes(lesson.getDurability())).max(LocalDateTime::compareTo).get());
-		}
-	}
-
-	public void countStartDate() {
-		if (!getLessons().isEmpty()) {
-			setStartDate(getLessons().stream().map(Lesson::getLessonDate).min(LocalDateTime::compareTo).get());
-		}
 	}
 
 	@Override

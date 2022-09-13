@@ -20,7 +20,6 @@ import org.springframework.security.access.AccessDeniedException;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -179,7 +178,7 @@ public class LessonServiceImplTest extends AbstractServiceTest {
 
 	@Test
 	@Order(10)
-	public void addLesson_givenCourseIsOnline_whenLessonIsOffline_thenCourseIsPartlyOnline() {
+	public void addLesson_givenCourseIsOnline_whenLessonIsOffline_thenCourseIsPartiallyOnline() {
 		String currentUsername = "rav";
 		Course course = getCourseTable().get(3L);
 		OnlineType oldCourseOnlineType = course.getOnline();
@@ -188,7 +187,7 @@ public class LessonServiceImplTest extends AbstractServiceTest {
 		lessonService.addLesson(currentUsername, lesson);
 
 		assertEquals(OnlineType.OFFLINE, lesson.getOnline());
-		assertEquals(OnlineType.PARTLY_ONLINE, course.getOnline());
+		assertEquals(OnlineType.PARTIALLY_ONLINE, course.getOnline());
 		assertNotEquals(oldCourseOnlineType, course.getOnline());
 	}
 
@@ -501,26 +500,14 @@ public class LessonServiceImplTest extends AbstractServiceTest {
 
 	@Test
 	@Order(34)
-	public void updateLessonStatuses_givenCurrentTime_thenChangeStatuses() {
+	public void updateLessonStatus_givenCurrentTime_thenChangeStatuses() {
 		String currentUsername = "rav";
 		LocalDateTime now = LocalDateTime.parse("12.11.2022 13:00", getDateTimeFormatter());
-		List<LessonStatus> statusesThatShouldNotChange = getUserDao().getTeacherLessons(4L).stream().map(Lesson::getStatus).collect(Collectors.toList());
+		Long lessonId = 8L;
 
-		lessonService.updateLessonStatuses(currentUsername, now);
+		lessonService.updateLessonStatus(currentUsername, now, lessonId);
 
-		for (Lesson lesson : getUserDao().getTeacherLessons(3L)) {
-			if (!LessonStatus.DENIED.equals(lesson.getStatus())) {
-				if (lesson.getLessonDate().isAfter(now)) {
-					assertEquals(LessonStatus.NOT_STARTED, lesson.getStatus());
-				} else if (lesson.getLessonDate().equals(now) || lesson.getLessonDate().isBefore(now) && lesson.getLessonDate().plusMinutes(lesson.getDurability()).isAfter(now)) {
-					assertEquals(LessonStatus.IN_PROGRESS, lesson.getStatus());
-				} else {
-					assertEquals(LessonStatus.FINISHED, lesson.getStatus());
-				}
-			}
-		}
-		List<LessonStatus> checkUnchangedStatuses = getUserDao().getTeacherLessons(4L).stream().map(Lesson::getStatus).collect(Collectors.toList());
-		assertEquals(statusesThatShouldNotChange, checkUnchangedStatuses);
+		assertEquals(LessonStatus.FINISHED, getLessonTable().get(lessonId).getStatus());
 	}
 
 	@Test

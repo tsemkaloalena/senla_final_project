@@ -29,7 +29,10 @@ public class SubscriptionDaoImpl extends AbstractDaoImpl<Subscription> implement
 		Root<Subscription> rootEntry = criteriaQuery.from(Subscription.class);
 		Predicate userPredicate = criteriaBuilder.equal(rootEntry.get("user").get("id"), userId);
 		Predicate lessonPredicate = criteriaBuilder.equal(rootEntry.get("lesson").get("id"), lessonId);
-		CriteriaQuery<Subscription> subscriptions = criteriaQuery.select(rootEntry).where(criteriaBuilder.and(userPredicate, lessonPredicate));
+		CriteriaQuery<Subscription> subscriptions = criteriaQuery.select(rootEntry)
+				.where(
+						criteriaBuilder.and(userPredicate, lessonPredicate)
+				);
 		if (entityManager.createQuery(subscriptions).getResultList().isEmpty()) {
 			return null;
 		}
@@ -44,8 +47,12 @@ public class SubscriptionDaoImpl extends AbstractDaoImpl<Subscription> implement
 		Root<Subscription> rootEntry = criteriaQuery.from(Subscription.class);
 		Predicate userPredicate = criteriaBuilder.equal(rootEntry.get("user").get("id"), userId);
 		Predicate lessonPredicate = criteriaBuilder.isNull(rootEntry.get("lesson").get("course"));
-		CriteriaQuery<Subscription> subscriptions = criteriaQuery.select(rootEntry).where(criteriaBuilder.and(userPredicate, lessonPredicate));
-		return entityManager.createQuery(subscriptions).getResultList().stream().map(Subscription::getLesson).collect(Collectors.toList());
+		CriteriaQuery<Subscription> subscriptions = criteriaQuery.select(rootEntry)
+				.where(
+						criteriaBuilder.and(userPredicate, lessonPredicate)
+				);
+		return entityManager.createQuery(subscriptions).getResultList().stream()
+				.map(Subscription::getLesson).collect(Collectors.toList());
 	}
 
 	@Override
@@ -56,7 +63,11 @@ public class SubscriptionDaoImpl extends AbstractDaoImpl<Subscription> implement
 		Root<Subscription> rootEntry = criteriaQuery.from(Subscription.class);
 		Predicate userPredicate = criteriaBuilder.equal(rootEntry.get("user").get("id"), userId);
 		Predicate coursePredicate = criteriaBuilder.isNotNull(rootEntry.get("lesson").get("course"));
-		CriteriaQuery<Subscription> subscriptions = criteriaQuery.select(rootEntry).where(criteriaBuilder.and(userPredicate, coursePredicate));
-		return entityManager.createQuery(subscriptions).getResultList().stream().map(subscription -> subscription.getLesson().getCourse()).distinct().collect(Collectors.toList());
+		CriteriaQuery<Subscription> subscriptions = criteriaQuery.select(rootEntry)
+				.where(
+						criteriaBuilder.and(userPredicate, coursePredicate)
+				);
+		return entityManager.createQuery(subscriptions).getResultList().stream()
+				.map(subscription -> subscription.getLesson().getCourse()).distinct().collect(Collectors.toList());
 	}
 }

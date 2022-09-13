@@ -43,6 +43,10 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
 		entityManager.persist(entity);
 	}
 
+	public void updateOrCreateWithId(T entity) {
+		entityManager.merge(entity);
+	}
+
 	public void deleteById(Long id) {
 		T entity = entityManager.find(getEntityClass(), id);
 		if (entity == null) {

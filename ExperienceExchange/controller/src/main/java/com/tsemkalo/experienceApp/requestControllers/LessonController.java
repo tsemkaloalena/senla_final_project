@@ -26,12 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.tsemkalo.experienceApp.enums.PermissionType.Authorities.ADD;
-import static com.tsemkalo.experienceApp.enums.PermissionType.Authorities.DELETE;
-import static com.tsemkalo.experienceApp.enums.PermissionType.Authorities.EDIT;
-import static com.tsemkalo.experienceApp.enums.PermissionType.Authorities.GET_SALARY;
-import static com.tsemkalo.experienceApp.enums.PermissionType.Authorities.READ;
-import static com.tsemkalo.experienceApp.enums.PermissionType.Authorities.SUBSCRIBE;
+import static com.tsemkalo.experienceApp.PermissionsForController.ADD;
+import static com.tsemkalo.experienceApp.PermissionsForController.DELETE;
+import static com.tsemkalo.experienceApp.PermissionsForController.EDIT;
+import static com.tsemkalo.experienceApp.PermissionsForController.GET_SALARY;
+import static com.tsemkalo.experienceApp.PermissionsForController.READ;
+import static com.tsemkalo.experienceApp.PermissionsForController.SUBSCRIBE;
 
 @Slf4j
 @RestController
@@ -43,6 +43,24 @@ public class LessonController {
 	@Autowired
 	private LessonMapper lessonMapper;
 
+	/**
+	 * Finding and filtering lessons
+	 * @param status filter by status (is the course started, finished and etc)
+	 * @param teacherName filter by teacher name
+	 * @param teacherSurname filter by teacher surname
+	 * @param theme filter by lesson theme
+	 * @param minRating find lessons with rating not less than given
+	 * @param online find online / offline lessons
+	 * @param address filter by address
+	 * @param free find only free lessons
+	 * @param minCost find lessons with cost not less than given
+	 * @param maxCost find lessons with cost not greater than given
+	 * @param numberOfPlaces find lessons with number of places left not less than given
+	 * @param individual find individual / group lessons
+	 * @param from find lessons starting after given date
+	 * @param to find lessons finishing before given date
+	 * @return filtered list of lessons
+	 */
 	@PreAuthorize(READ)
 	@GetMapping
 	public List<LessonDto> getLessons(@RequestParam(required = false) LessonStatus status,
@@ -89,6 +107,10 @@ public class LessonController {
 		return lessonService.getLessons(predicates).stream().map(lessonMapper::toDto).collect(Collectors.toList());
 	}
 
+	/**
+	 * @param lessonDto lesson data
+	 * @return added to database lesson data
+	 */
 	@PreAuthorize(ADD)
 	@PutMapping
 	public LessonDto addLesson(@RequestBody LessonDto lessonDto) {
@@ -96,30 +118,46 @@ public class LessonController {
 		return lessonMapper.toDto(lessonService.addLesson(authentication.getName(), lessonMapper.toEntity(lessonDto)));
 	}
 
+	/**
+	 * @param id id of the edited lesson
+	 * @param lessonDto data that should be edited
+	 * @return edited lesson data
+	 */
 	@PreAuthorize(EDIT)
 	@PostMapping("/{id}")
-	public LessonDto editLesson(@RequestBody LessonDto lessonDto, @PathVariable Long id) {
+	public LessonDto editLesson(@PathVariable Long id, @RequestBody LessonDto lessonDto) {
 		lessonDto.setId(id);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return lessonMapper.toDto(lessonService.editLesson(authentication.getName(), lessonMapper.toEntity(lessonDto)));
 	}
 
+	/**
+	 * @param id id of the lesson that should be denied
+	 * @return cancellation success message
+	 */
 	@PreAuthorize(EDIT)
-	@PostMapping("/deny")
-	public String denyLesson(@RequestParam Long id) {
+	@PostMapping("/{id}/deny")
+	public String denyLesson(@PathVariable Long id) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		lessonService.denyLesson(authentication.getName(), id);
 		return "Lesson with id " + id + " is denied";
 	}
 
+	/**
+	 * @param id id of the lesson that should be deleted
+	 * @return successful deletion message
+	 */
 	@PreAuthorize(DELETE)
-	@DeleteMapping
-	public String deleteLesson(@RequestParam Long id) {
+	@DeleteMapping("/{id}")
+	public String deleteLesson(@PathVariable Long id) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		lessonService.deleteLesson(authentication.getName(), id);
 		return "Lesson with id " + id + " is deleted";
 	}
 
+	/**
+	 * @return list of lessons to which the student is subscribed
+	 */
 	@PreAuthorize(SUBSCRIBE)
 	@GetMapping("/subscriptions")
 	public List<LessonDto> getSubscriptions() {
@@ -127,9 +165,13 @@ public class LessonController {
 		return lessonService.getSubscriptions(authentication.getName()).stream().map(lessonMapper::toDto).collect(Collectors.toList());
 	}
 
+	/**
+	 * @param id id of the lesson to which the student should be subscribed
+	 * @return message about subscription success
+	 */
 	@PreAuthorize(SUBSCRIBE)
-	@PostMapping("/subscribe")
-	public String subscribeLesson(@RequestParam Long id) {
+	@PostMapping("/{id}/subscribe")
+	public String subscribeLesson(@PathVariable Long id) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (lessonService.subscribe(authentication.getName(), id)) {
 			return "You are subscribed to lesson with id " + id;
@@ -137,9 +179,13 @@ public class LessonController {
 		return "Subscription was failed. You were already subscribed to lesson with id " + id;
 	}
 
+	/**
+	 * @param id id of the lesson to which the student should be unsubscribed
+	 * @return message about success of canceling subscription
+	 */
 	@PreAuthorize(SUBSCRIBE)
-	@PostMapping("/unsubscribe")
-	public String unsubscribeLesson(@RequestParam Long id) {
+	@PostMapping("/{id}/unsubscribe")
+	public String unsubscribeLesson(@PathVariable Long id) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (lessonService.unsubscribe(authentication.getName(), id)) {
 			return "You are unsubscribed to lesson with id " + id;
@@ -147,6 +193,10 @@ public class LessonController {
 		return "Unsubscription was failed. You were not subscribed to the lesson with id " + id;
 	}
 
+	/**
+	 * @param id id of the lesson for which the teacher's salary should be counted
+	 * @return message about counted salary
+	 */
 	@PreAuthorize(GET_SALARY)
 	@GetMapping("/{id}/salary")
 	public String countSalary(@PathVariable Long id) {
@@ -156,5 +206,19 @@ public class LessonController {
 			return "You don't have a salary, too few students";
 		}
 		return "Your salary for the lesson with id " + id + " is " + salary;
+	}
+
+	/**
+	 * @param id id of the lesson which status should be updated
+	 * @param currentTime time according to which the status should be updated
+	 * @return message about success of status update
+	 */
+	@PreAuthorize(EDIT)
+	@PostMapping("/{id}/update_status")
+	public String updateLessonStatuses(@PathVariable Long id, @RequestParam(required = false) @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm") LocalDateTime currentTime) {
+		// automatic update by matching with current date is supported
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		lessonService.updateLessonStatus(authentication.getName(), currentTime, id);
+		return "Your lesson status is updated according to the current time";
 	}
 }

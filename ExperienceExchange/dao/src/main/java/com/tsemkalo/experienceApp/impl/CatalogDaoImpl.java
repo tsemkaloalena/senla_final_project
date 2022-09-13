@@ -20,8 +20,12 @@ public abstract class CatalogDaoImpl<T extends AbstractEntity> extends AbstractD
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
 		Root<T> rootEntry = criteriaQuery.from(entityClass);
 		rootEntry.alias("alias1");
-		Predicate namePredicate = criteriaBuilder.equal(rootEntry.get("teacher").get("name"), teacherName);
-		Predicate surnamePredicate = criteriaBuilder.equal(rootEntry.get("teacher").get("surname"), teacherSurname);
+		Predicate namePredicate = criteriaBuilder.equal(
+				rootEntry.get("teacher").get("name"), teacherName
+		);
+		Predicate surnamePredicate = criteriaBuilder.equal(
+				rootEntry.get("teacher").get("surname"), teacherSurname
+		);
 		return criteriaBuilder.and(namePredicate, surnamePredicate);
 	}
 
@@ -108,8 +112,12 @@ public abstract class CatalogDaoImpl<T extends AbstractEntity> extends AbstractD
 		Root<T> rootEntry = criteriaQuery.from(entityClass);
 		rootEntry.alias("alias1");
 		if (lessonStatus == null) {
-			Predicate inProgressPredicate = criteriaBuilder.equal(rootEntry.get("status"), LessonStatus.IN_PROGRESS);
-			Predicate notStartedPredicate = criteriaBuilder.equal(rootEntry.get("status"), LessonStatus.NOT_STARTED);
+			Predicate inProgressPredicate = criteriaBuilder.equal(
+					rootEntry.get("status"), LessonStatus.IN_PROGRESS
+			);
+			Predicate notStartedPredicate = criteriaBuilder.equal(
+					rootEntry.get("status"), LessonStatus.NOT_STARTED
+			);
 			return criteriaBuilder.or(inProgressPredicate, notStartedPredicate);
 		}
 		return criteriaBuilder.equal(rootEntry.get("status"), lessonStatus);
@@ -122,7 +130,9 @@ public abstract class CatalogDaoImpl<T extends AbstractEntity> extends AbstractD
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
 		Root<T> rootEntry = criteriaQuery.from(entityClass);
 		rootEntry.alias("alias1");
-		Predicate minimalPredicate = criteriaBuilder.greaterThanOrEqualTo(rootEntry.get("freePlacesLeft"), numberOfPlaces);
+		Predicate minimalPredicate = criteriaBuilder.greaterThanOrEqualTo(
+				rootEntry.get("freePlacesLeft"), numberOfPlaces
+		);
 		Predicate infinityPredicate = criteriaBuilder.isNull(rootEntry.get("freePlacesLeft"));
 		return criteriaBuilder.or(minimalPredicate, infinityPredicate);
 	}

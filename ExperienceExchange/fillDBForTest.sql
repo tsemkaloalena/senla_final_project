@@ -21,19 +21,19 @@ INSERT INTO roles(id, name) VALUES
 (2, "TEACHER"),
 (3, "STUDENT");
 
-INSERT INTO users(id, username, password, name, surname, role_id) VALUES
-(1, "svetlana", "$2a$10$eHrKX3q0Gi.K3IXxDVSnmevyIf.LLq/DEAoHCMSCkIPDsOQsrix7W", "Svetlana", "Oleina", 1),
-(2, "amy", "$2a$10$uURzRp0Dr/iC5GEP3POsPeEvpF8GBfy1WNx0l2eNbM/WyvyrZHV4S", "Amy", "Norton", 2),
-(3, "rav", "$2a$10$K9VIDic.2ZRNlDUn5Ex8p.WztqJ9VnFz935itAylM3/zMCV9TGTjW", "Rav", "Ahuja", 2),
-(4, "robby", "$2a$10$YIePp00IQCDH5cSjZdcBAeBmKJUJ8QjaJh.bKjPA51kW30PBpic.K", "Robert", "Shiller", 2),
-(5, "nadya", "$2a$10$6pY.lRuSXtWLupFhyHzZD.uyoRojk6ecvKGBqlJ5WllPdfFdOE3Vi", "Nader", "Tavassoli", 2),
-(6, "rohit", "$2a$10$d4rss2UUzw1jY0m6m8eZxOIJSAwocb0oelOhpPTjHw1GW/1XlBw42", "Rohit", "Rahi", 2),
-(7, "pasha", "$2a$10$YAy0lNUFouUPvxJZoFaYR.uwV2uKNJz8hdbmJ9dA4M.LCJbgD/jXi", "Pavel", "Pevzner", 2),
-(8, "philya", "$2a$10$gLr2A2aU1w8C6JV2x0CZKuAtaUvbtHO.whMinTKaOnvx.ggTwPyme", "Phillip", "Compeau", 2),
-(9, "lisa", "$2a$10$bbP1/bhs/ByqDYsQtg.FFO3M7Qwoiug5p8cPhQWX2xqBtn7anYoOq", "Lisa", "Mazzola", 2),
-(10, "marik", "$2a$10$h2O/buH8cHiKx6eSgFuhs..c5fB15lu2Bi1SRSMpq3d8nTJBhJROW", "Marik", "Thewho", 3),
-(11, "edik", "$2a$10$5ufPvlwI5MBXQDa/7wIdsuHneB2/ppWSAn5cz5tmhA2NuMjwrg2DS", "Edik", "NotYarik", 3),
-(12, "derevo", "$2a$10$qOIhlqKOgDb0Ftrv5cn/zOGnPIa1Rv5p83TxhiHZOnOMORkXwBVuC", "Drevo", "Obrabotka", 3);
+INSERT INTO users(id, username, password, name, surname, role_id, email) VALUES
+(1, "svetlana", "$2a$10$eHrKX3q0Gi.K3IXxDVSnmevyIf.LLq/DEAoHCMSCkIPDsOQsrix7W", "Svetlana", "Oleina", 1, "svetlana@gmail.com"),
+(2, "amy", "$2a$10$uURzRp0Dr/iC5GEP3POsPeEvpF8GBfy1WNx0l2eNbM/WyvyrZHV4S", "Amy", "Norton", 2, "amy@gmail.com"),
+(3, "rav", "$2a$10$K9VIDic.2ZRNlDUn5Ex8p.WztqJ9VnFz935itAylM3/zMCV9TGTjW", "Rav", "Ahuja", 2, "rav@gmail.com"),
+(4, "robby", "$2a$10$YIePp00IQCDH5cSjZdcBAeBmKJUJ8QjaJh.bKjPA51kW30PBpic.K", "Robert", "Shiller", 2, "robby@gmail.com"),
+(5, "nadya", "$2a$10$6pY.lRuSXtWLupFhyHzZD.uyoRojk6ecvKGBqlJ5WllPdfFdOE3Vi", "Nader", "Tavassoli", 2, "nadya@gmail.com"),
+(6, "rohit", "$2a$10$d4rss2UUzw1jY0m6m8eZxOIJSAwocb0oelOhpPTjHw1GW/1XlBw42", "Rohit", "Rahi", 2, "rohit@gmail.com"),
+(7, "pasha", "$2a$10$YAy0lNUFouUPvxJZoFaYR.uwV2uKNJz8hdbmJ9dA4M.LCJbgD/jXi", "Pavel", "Pevzner", 2, "pasha@gmail.com"),
+(8, "philya", "$2a$10$gLr2A2aU1w8C6JV2x0CZKuAtaUvbtHO.whMinTKaOnvx.ggTwPyme", "Phillip", "Compeau", 2, "philya@gmail.com"),
+(9, "lisa", "$2a$10$bbP1/bhs/ByqDYsQtg.FFO3M7Qwoiug5p8cPhQWX2xqBtn7anYoOq", "Lisa", "Mazzola", 2, "lisa@gmail.com"),
+(10, "marik", "$2a$10$h2O/buH8cHiKx6eSgFuhs..c5fB15lu2Bi1SRSMpq3d8nTJBhJROW", "Marik", "Thewho", 3, "marik@gmail.com"),
+(11, "edik", "$2a$10$5ufPvlwI5MBXQDa/7wIdsuHneB2/ppWSAn5cz5tmhA2NuMjwrg2DS", "Edik", "NotYarik", 3, "edik@gmail.com"),
+(12, "derevo", "$2a$10$qOIhlqKOgDb0Ftrv5cn/zOGnPIa1Rv5p83TxhiHZOnOMORkXwBVuC", "Drevo", "Obrabotka", 3, "derevo@gmail.com");
 
 INSERT INTO courses(id, theme, subject, status, online, address, teacher_id, individual, cost, start_date, finish_date, description, average_rating) VALUES
 (1, "IT", "Google IT Support", "NOT_STARTED", "ONLINE", NULL, 2, false, 20, STR_TO_DATE("03.10.2022 15:40", "%d.%m.%Y %H:%i"), STR_TO_DATE("31.10.2022 15:40", "%d.%m.%Y %H:%i"), "This is your path to a career in IT. In this program, you’ll learn in-demand skills that will have you job-ready in less than 6 months. No degree or experience required.", NULL),

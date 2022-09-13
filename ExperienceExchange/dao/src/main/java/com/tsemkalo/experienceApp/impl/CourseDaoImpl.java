@@ -3,6 +3,9 @@ package com.tsemkalo.experienceApp.impl;
 import com.tsemkalo.experienceApp.CourseDao;
 import com.tsemkalo.experienceApp.entities.Course;
 import com.tsemkalo.experienceApp.entities.Lesson;
+import com.tsemkalo.experienceApp.entities.Review;
+import com.tsemkalo.experienceApp.enums.LessonStatus;
+import com.tsemkalo.experienceApp.enums.OnlineType;
 import com.tsemkalo.experienceApp.exceptions.IncorrectDataException;
 import org.springframework.stereotype.Component;
 
@@ -56,19 +59,78 @@ public class CourseDaoImpl extends CatalogDaoImpl<Course> implements CourseDao {
 		CriteriaQuery<Course> criteriaQuery = criteriaBuilder.createQuery(Course.class);
 		Root<Course> rootEntry = criteriaQuery.from(Course.class);
 		rootEntry.alias("alias1");
-		CriteriaQuery<Course> lessons = criteriaQuery.select(rootEntry).where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
+		CriteriaQuery<Course> lessons = criteriaQuery.select(rootEntry)
+				.where(
+						criteriaBuilder.and(predicates.toArray(new Predicate[0])
+						));
 		return entityManager.createQuery(lessons).getResultList();
 	}
 
 	@Override
 	public void updateCourseAccordingToLesson(Lesson lesson) {
 		Course course = lesson.getCourse();
-		course.setOnline();
+		updateOnlineType(course.getId());
 		if (course.getAddress() == null) {
 			course.setAddress(lesson.getAddress());
 		}
-		lesson.getCourse().countStartDate();
-		lesson.getCourse().countFinishDate();
+		countStartDate(lesson.getCourse().getId());
+		countFinishDate(lesson.getCourse().getId());
 		course.setCost(course.getLessons().stream().map(Lesson::getCost).mapToInt(Integer::intValue).sum());
+	}
+
+	@Override
+	public void updateOnlineType(Long courseId) {
+		Course course = getById(courseId);
+		Boolean onlineExists = course.getLessons().stream().anyMatch(lesson -> OnlineType.ONLINE.equals(lesson.getOnline()));
+		Boolean offlineExists = course.getLessons().stream().anyMatch(lesson -> OnlineType.OFFLINE.equals(lesson.getOnline()));
+		if (onlineExists && offlineExists) {
+			course.setOnline(OnlineType.PARTIALLY_ONLINE);
+		} else if (offlineExists) {
+			course.setOnline(OnlineType.OFFLINE);
+		} else {
+			course.setOnline(OnlineType.ONLINE);
+		}
+	}
+
+	@Override
+	public void countAverageRating(Long courseId) {
+		Course course = getById(courseId);
+		if (course.getReviews().isEmpty()) {
+			course.setAverageRating(null);
+		} else {
+			course.setAverageRating(course.getReviews().stream().map(Review::getRating)
+					.mapToDouble(Integer::doubleValue).sum() / course.getReviews().size());
+		}
+	}
+
+	@Override
+	public void countCost(Long courseId) {
+		Course course = getById(courseId);
+		if (course.getLessons().isEmpty()) {
+			course.setCost(null);
+		} else {
+			course.setCost(course.getLessons().stream()
+					.filter(lesson -> !LessonStatus.DENIED.equals(lesson.getStatus()))
+					.map(Lesson::getCost).mapToInt(Integer::intValue).sum());
+		}
+	}
+
+	@Override
+	public void countFinishDate(Long courseId) {
+		Course course = getById(courseId);
+		if (!course.getLessons().isEmpty()) {
+			course.setFinishDate(course.getLessons().stream()
+					.map(lesson -> lesson.getLessonDate().plusMinutes(lesson.getDurability()))
+					.max(LocalDateTime::compareTo).get());
+		}
+	}
+
+	@Override
+	public void countStartDate(Long courseId) {
+		Course course = getById(courseId);
+		if (!course.getLessons().isEmpty()) {
+			course.setStartDate(course.getLessons().stream()
+					.map(Lesson::getLessonDate).min(LocalDateTime::compareTo).get());
+		}
 	}
 }

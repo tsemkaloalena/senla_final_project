@@ -2,15 +2,15 @@ DROP DATABASE IF EXISTS experience_exchange_db;
 CREATE DATABASE experience_exchange_db;
 USE experience_exchange_db;
 
-CREATE TABLE permissions (
-id bigint PRIMARY KEY NOT NULL AUTO_INCREMENT,
-name varchar(64) NOT NULL,
-role_id bigint REFERENCES role(id)
-);
-
 CREATE TABLE roles (
 id bigint PRIMARY KEY NOT NULL AUTO_INCREMENT,
 name varchar(64) NOT NULL
+);
+
+CREATE TABLE permissions (
+id bigint PRIMARY KEY NOT NULL AUTO_INCREMENT,
+name varchar(64) NOT NULL,
+role_id bigint REFERENCES roles(id)
 );
 
 CREATE TABLE users (
@@ -19,7 +19,8 @@ username varchar(64) NOT NULL,
 password varchar(64) NOT NULL,
 name varchar(64) NOT NULL,
 surname varchar(64) NOT NULL,
-role_id bigint REFERENCES roles(id)
+role_id bigint REFERENCES roles(id),
+email varchar(64) NOT NULL
 );
 
 CREATE TABLE courses (

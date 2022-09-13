@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.lenient;
 
 @Setter
@@ -78,19 +80,19 @@ public abstract class AbstractServiceTest {
 	}
 
 	private void fillUserTable() {
-		addUser(1L, "svetlana", "$2a$10$eHrKX3q0Gi.K3IXxDVSnmevyIf.LLq/DEAoHCMSCkIPDsOQsrix7W", "Svetlana", "Oleina", new Role(RoleType.ADMIN));
-		addUser(2L, "amy", "$2a$10$uURzRp0Dr/iC5GEP3POsPeEvpF8GBfy1WNx0l2eNbM/WyvyrZHV4S", "Amy", "Norton", new Role(RoleType.TEACHER));
-		addUser(3L, "rav", "$2a$10$K9VIDic.2ZRNlDUn5Ex8p.WztqJ9VnFz935itAylM3/zMCV9TGTjW", "Rav", "Ahuja", new Role(RoleType.TEACHER));
-		addUser(4L, "robby", "$2a$10$YIePp00IQCDH5cSjZdcBAeBmKJUJ8QjaJh.bKjPA51kW30PBpic.K", "Robert", "Shiller", new Role(RoleType.TEACHER));
-		addUser(5L, "nadya", "$2a$10$6pY.lRuSXtWLupFhyHzZD.uyoRojk6ecvKGBqlJ5WllPdfFdOE3Vi", "Nader", "Tavassoli", new Role(RoleType.TEACHER));
-		addUser(6L, "rohit", "$2a$10$d4rss2UUzw1jY0m6m8eZxOIJSAwocb0oelOhpPTjHw1GW/1XlBw42", "Rohit", "Rahi", new Role(RoleType.TEACHER));
-		addUser(7L, "pasha", "$2a$10$YAy0lNUFouUPvxJZoFaYR.uwV2uKNJz8hdbmJ9dA4M.LCJbgD/jXi", "Pavel", "Pevzner", new Role(RoleType.TEACHER));
-		addUser(8L, "philya", "$2a$10$gLr2A2aU1w8C6JV2x0CZKuAtaUvbtHO.whMinTKaOnvx.ggTwPyme", "Phillip", "Compeau", new Role(RoleType.TEACHER));
-		addUser(9L, "lisa", "$2a$10$bbP1/bhs/ByqDYsQtg.FFO3M7Qwoiug5p8cPhQWX2xqBtn7anYoOq", "Lisa", "Mazzola", new Role(RoleType.TEACHER));
-		addUser(10L, "marik", "$2a$10$h2O/buH8cHiKx6eSgFuhs..c5fB15lu2Bi1SRSMpq3d8nTJBhJROW", "Marik", "Thewho", new Role(RoleType.STUDENT));
-		addUser(11L, "edik", "$2a$10$5ufPvlwI5MBXQDa/7wIdsuHneB2/ppWSAn5cz5tmhA2NuMjwrg2DS", "Edik", "NotYarik", new Role(RoleType.STUDENT));
-		addUser(12L, "derevo", "$2a$10$qOIhlqKOgDb0Ftrv5cn/zOGnPIa1Rv5p83TxhiHZOnOMORkXwBVuC", "Drevo", "Obrabotka", new Role(RoleType.STUDENT));
-		addUser(13L, "sashenka", "$2a$10$bo4DgfkF4rXX2x0iO3Xn0eMvBGm4wOvxOkx0utSPrdnml2/V/r32.", "Danya", "Saharok", new Role(RoleType.STUDENT));
+		addUser(1L, "svetlana", "$2a$10$eHrKX3q0Gi.K3IXxDVSnmevyIf.LLq/DEAoHCMSCkIPDsOQsrix7W", "Svetlana", "Oleina", new Role(RoleType.ADMIN), "tsemkaloalena@gmail.com");
+		addUser(2L, "amy", "$2a$10$uURzRp0Dr/iC5GEP3POsPeEvpF8GBfy1WNx0l2eNbM/WyvyrZHV4S", "Amy", "Norton", new Role(RoleType.TEACHER), "tsemkaloalena@gmail.com");
+		addUser(3L, "rav", "$2a$10$K9VIDic.2ZRNlDUn5Ex8p.WztqJ9VnFz935itAylM3/zMCV9TGTjW", "Rav", "Ahuja", new Role(RoleType.TEACHER), "tsemkaloalena@gmail.com");
+		addUser(4L, "robby", "$2a$10$YIePp00IQCDH5cSjZdcBAeBmKJUJ8QjaJh.bKjPA51kW30PBpic.K", "Robert", "Shiller", new Role(RoleType.TEACHER), "tsemkaloalena@gmail.com");
+		addUser(5L, "nadya", "$2a$10$6pY.lRuSXtWLupFhyHzZD.uyoRojk6ecvKGBqlJ5WllPdfFdOE3Vi", "Nader", "Tavassoli", new Role(RoleType.TEACHER), "tsemkaloalena@gmail.com");
+		addUser(6L, "rohit", "$2a$10$d4rss2UUzw1jY0m6m8eZxOIJSAwocb0oelOhpPTjHw1GW/1XlBw42", "Rohit", "Rahi", new Role(RoleType.TEACHER), "tsemkaloalena@gmail.com");
+		addUser(7L, "pasha", "$2a$10$YAy0lNUFouUPvxJZoFaYR.uwV2uKNJz8hdbmJ9dA4M.LCJbgD/jXi", "Pavel", "Pevzner", new Role(RoleType.TEACHER), "tsemkaloalena@gmail.com");
+		addUser(8L, "philya", "$2a$10$gLr2A2aU1w8C6JV2x0CZKuAtaUvbtHO.whMinTKaOnvx.ggTwPyme", "Phillip", "Compeau", new Role(RoleType.TEACHER), "tsemkaloalena@gmail.com");
+		addUser(9L, "lisa", "$2a$10$bbP1/bhs/ByqDYsQtg.FFO3M7Qwoiug5p8cPhQWX2xqBtn7anYoOq", "Lisa", "Mazzola", new Role(RoleType.TEACHER), "tsemkaloalena@gmail.com");
+		addUser(10L, "marik", "$2a$10$h2O/buH8cHiKx6eSgFuhs..c5fB15lu2Bi1SRSMpq3d8nTJBhJROW", "Marik", "Thewho", new Role(RoleType.STUDENT), "tsemkaloalena@gmail.com");
+		addUser(11L, "edik", "$2a$10$5ufPvlwI5MBXQDa/7wIdsuHneB2/ppWSAn5cz5tmhA2NuMjwrg2DS", "Edik", "NotYarik", new Role(RoleType.STUDENT), "tsemkaloalena@gmail.com");
+		addUser(12L, "derevo", "$2a$10$qOIhlqKOgDb0Ftrv5cn/zOGnPIa1Rv5p83TxhiHZOnOMORkXwBVuC", "Drevo", "Obrabotka", new Role(RoleType.STUDENT), "tsemkaloalena@gmail.com");
+		addUser(13L, "sashenka", "$2a$10$bo4DgfkF4rXX2x0iO3Xn0eMvBGm4wOvxOkx0utSPrdnml2/V/r32.", "Danya", "Saharok", new Role(RoleType.STUDENT), "tsemkaloalena@gmail.com");
 	}
 
 	private void fillCourseTable() {
@@ -111,8 +113,8 @@ public abstract class AbstractServiceTest {
 		addLesson(9L, "IT", "OCI Security and Administration", userTable.get(3L), courseTable.get(2L), LessonStatus.NOT_STARTED, null, false, null, "This module focuses on the key features of Cloud. It gives an insight into the basic concepts for optimizing the use of these services.", 10, 73, LocalDateTime.parse("01.10.2022 12:00", dateTimeFormatter), 20, 75, null);
 	}
 
-	public void addUser(Long id, String username, String password, String name, String surname, Role role) {
-		User user = new User(username, password, name, surname, role);
+	public void addUser(Long id, String username, String password, String name, String surname, Role role, String email) {
+		User user = new User(username, password, name, surname, role, email);
 		user.setId(id);
 		user.setSubscriptions(new ArrayList<>());
 		user.setReviews(new ArrayList<>());
@@ -180,6 +182,11 @@ public abstract class AbstractServiceTest {
 		courseCommonMethodsSetUpper.createSetup(courseTable, courseDao, Course.class);
 		deleteCourseByIdSetup();
 		lenient().doCallRealMethod().when(courseDao).updateCourseAccordingToLesson(any(Lesson.class));
+		lenient().doCallRealMethod().when(courseDao).updateOnlineType(anyLong());
+		lenient().doCallRealMethod().when(courseDao).countAverageRating(anyLong());
+		lenient().doCallRealMethod().when(courseDao).countCost(anyLong());
+		lenient().doCallRealMethod().when(courseDao).countFinishDate(anyLong());
+		lenient().doCallRealMethod().when(courseDao).countStartDate(anyLong());
 	}
 
 	private void lessonDaoSetup() {
@@ -187,6 +194,10 @@ public abstract class AbstractServiceTest {
 		lessonCommonMethodsSetUpper.getByIdSetup(lessonTable, lessonDao);
 		createLessonSetup();
 		deleteLessonByIdSetup();
+		lenient().doCallRealMethod().when(lessonDao).updateLessonStatus(anyLong(), any(LocalDateTime.class));
+		lenient().doCallRealMethod().when(lessonDao).countAverageRating(anyLong());
+		lenient().doCallRealMethod().when(lessonDao).getSalaryForLesson(anyLong());
+		lenient().doCallRealMethod().when(lessonDao).getSalaryForCourse(anyList());
 	}
 
 	private void subscriptionDaoSetup() {

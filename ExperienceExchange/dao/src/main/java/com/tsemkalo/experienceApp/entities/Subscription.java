@@ -17,10 +17,16 @@ import javax.persistence.Table;
 @Getter
 @Setter
 public class Subscription extends AbstractEntity {
+	/**
+	 * Field for holding a student, who is subscribed to the lesson
+	 */
 	@ManyToOne
 	@JoinColumn(name = "student_id")
 	private User user;
 
+	/**
+	 * Field for holding a lesson to which the user is subscribed
+	 */
 	@ManyToOne
 	@JoinColumn(name = "lesson_id")
 	private Lesson lesson;

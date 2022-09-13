@@ -12,4 +12,6 @@ public interface AbstractDao<T extends AbstractEntity> {
 	void deleteById(Long id);
 
 	void create(T entity);
+
+	void updateOrCreateWithId(T entity);
 }

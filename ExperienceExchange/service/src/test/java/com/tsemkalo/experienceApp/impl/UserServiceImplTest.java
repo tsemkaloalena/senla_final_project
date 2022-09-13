@@ -50,15 +50,12 @@ public class UserServiceImplTest extends AbstractServiceTest {
 		String password = "in_the_hood";
 		String name = "Anatoliy";
 		String surname = "English";
+		String email = "tsemkaloalena@gmail.com";
 		Role role = new Role(RoleType.TEACHER);
-		User newUser = new User(username, password, name, surname, role);
+		User newUser = new User(username, password, name, surname, role, email);
 
 		userService.saveUser(newUser);
 
-		assertEquals(newUser.getUsername(), username);
-		assertEquals(newUser.getName(), name);
-		assertEquals(newUser.getSurname(), surname);
-		assertEquals(newUser.getRole(), role);
 		assertNotEquals(newUser.getPassword(), password);
 		assertTrue(getBCryptPasswordEncoder().matches(password, newUser.getPassword()));
 		assertNotNull(newUser.getId());
@@ -72,8 +69,9 @@ public class UserServiceImplTest extends AbstractServiceTest {
 		String password = "otherPassword";
 		String name = "otherName";
 		String surname = "otherSurname";
+		String email = "tsemkaloalena@gmail.com";
 		Role role = new Role(RoleType.STUDENT);
-		User newUser = new User(username, password, name, surname, role);
+		User newUser = new User(username, password, name, surname, role, email);
 
 		assertThrows(UserExistsException.class, () -> userService.saveUser(newUser));
 	}
@@ -155,6 +153,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
 		String currentUsername = "sahar";
 		String newUsername = "danya";
 		String password = "saharok";
+		String email = "tsemkaloalena@gmail.com";
 
 		assertThrows(AccessDeniedException.class, () -> userService.changeUsername(currentUsername, newUsername, password));
 	}
@@ -163,21 +162,23 @@ public class UserServiceImplTest extends AbstractServiceTest {
 	@Order(12)
 	public void editInfo_whenNoChangesAreSet_thenIncorrectDataExceptionThrown() {
 		String currentUsername = "marik";
+		User editedUser = new User();
 
-		assertThrows(IncorrectDataException.class, () -> userService.editInfo(currentUsername, null, null));
+		assertThrows(IncorrectDataException.class, () -> userService.editInfo(currentUsername, editedUser));
 	}
 
 	@Test
 	@Order(13)
 	public void editInfo_whenNewNameIsSet_thenNameChanged() {
 		String currentUsername = "marik";
-		String name = "Yarik";
 		String oldName = getUserTable().get(10L).getName();
 		String oldSurname = getUserTable().get(10L).getSurname();
+		User editedUser = new User();
+		editedUser.setName("Yarik");
 
-		userService.editInfo(currentUsername, name, null);
+		userService.editInfo(currentUsername, editedUser);
 
-		assertEquals(name, getUserTable().get(10L).getName());
+		assertEquals("Yarik", getUserTable().get(10L).getName());
 		assertNotNull(getUserTable().get(10L).getSurname());
 		assertNotEquals(oldName, getUserTable().get(10L).getName());
 		assertEquals(oldSurname, getUserTable().get(10L).getSurname());
@@ -187,13 +188,14 @@ public class UserServiceImplTest extends AbstractServiceTest {
 	@Order(14)
 	public void editInfo_whenNewSurnameIsSet_thenNameChanged() {
 		String currentUsername = "marik";
-		String surname = "VseResheno";
+		User editedUser = new User();
+		editedUser.setSurname("VseResheno");
 		String oldName = getUserTable().get(10L).getName();
 		String oldSurname = getUserTable().get(10L).getSurname();
 
-		userService.editInfo(currentUsername, null, surname);
+		userService.editInfo(currentUsername, editedUser);
 
-		assertEquals(surname, getUserTable().get(10L).getSurname());
+		assertEquals("VseResheno", getUserTable().get(10L).getSurname());
 		assertNotNull(getUserTable().get(10L).getName());
 		assertEquals(oldName, getUserTable().get(10L).getName());
 		assertNotEquals(oldSurname, getUserTable().get(10L).getSurname());
@@ -203,15 +205,16 @@ public class UserServiceImplTest extends AbstractServiceTest {
 	@Order(15)
 	public void editInfo_whenNewNameAndSurnameAreSet_thenNameAndSurnameChanged() {
 		String currentUsername = "marik";
-		String name = "Valentin";
-		String surname = "Strikalo";
+		User editedUser = new User();
+		editedUser.setName("Valentin");
+		editedUser.setSurname("Strikalo");
 		String oldName = getUserTable().get(10L).getName();
 		String oldSurname = getUserTable().get(10L).getSurname();
 
-		userService.editInfo(currentUsername, name, surname);
+		userService.editInfo(currentUsername, editedUser);
 
-		assertEquals(surname, getUserTable().get(10L).getSurname());
-		assertEquals(name, getUserTable().get(10L).getName());
+		assertEquals("Valentin", getUserTable().get(10L).getName());
+		assertEquals("Strikalo", getUserTable().get(10L).getSurname());
 		assertNotEquals(oldName, getUserTable().get(10L).getName());
 		assertNotEquals(oldSurname, getUserTable().get(10L).getSurname());
 	}

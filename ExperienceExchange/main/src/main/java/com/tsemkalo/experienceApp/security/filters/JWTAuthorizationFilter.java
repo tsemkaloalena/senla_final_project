@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.tsemkalo.experienceApp.entities.User;
 import com.tsemkalo.experienceApp.exceptions.AuthorizationErrorException;
 import com.tsemkalo.experienceApp.impl.UserServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,7 @@ import static com.tsemkalo.experienceApp.SecurityConstants.HEADER_STRING;
 import static com.tsemkalo.experienceApp.SecurityConstants.SECRET;
 import static com.tsemkalo.experienceApp.SecurityConstants.TOKEN_PREFIX;
 
+@Slf4j
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	private UserServiceImpl userService;
 
@@ -36,6 +38,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			try {
 				chain.doFilter(request, response);
 			} catch (IOException | ServletException exception) {
+				log.error(Arrays.toString(exception.getStackTrace()));
 				throw new AuthorizationErrorException(Arrays.toString(exception.getStackTrace()));
 			}
 			return;
@@ -46,6 +49,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		try {
 			chain.doFilter(request, response);
 		} catch (IOException | ServletException exception) {
+			log.error(Arrays.toString(exception.getStackTrace()));
 			throw new AuthorizationErrorException(Arrays.toString(exception.getStackTrace()));
 		}
 	}

@@ -372,7 +372,8 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 		getLessonTable().get(8L).setStatus(LessonStatus.FINISHED);
 		getLessonTable().get(9L).setStatus(LessonStatus.FINISHED);
 
-		courseService.updateCourseStatuses(currentUsername);
+		courseService.updateCourseStatuses(currentUsername, 2L);
+		courseService.updateCourseStatuses(currentUsername, 3L);
 
 		assertEquals(LessonStatus.NOT_STARTED, getCourseTable().get(3L).getStatus());
 		assertEquals(LessonStatus.FINISHED, getCourseTable().get(2L).getStatus());
@@ -388,7 +389,7 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 		getLessonTable().get(8L).setStatus(LessonStatus.NOT_STARTED);
 		getLessonTable().get(9L).setStatus(LessonStatus.NOT_STARTED);
 
-		courseService.updateCourseStatuses(currentUsername);
+		courseService.updateCourseStatuses(currentUsername, 2L);
 
 		assertEquals(LessonStatus.IN_PROGRESS, getCourseTable().get(2L).getStatus());
 	}
@@ -403,13 +404,34 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 		getLessonTable().get(8L).setStatus(LessonStatus.NOT_STARTED);
 		getLessonTable().get(9L).setStatus(LessonStatus.NOT_STARTED);
 
-		courseService.updateCourseStatuses(currentUsername);
+		courseService.updateCourseStatuses(currentUsername, 2L);
 
 		assertEquals(LessonStatus.IN_PROGRESS, getCourseTable().get(2L).getStatus());
 	}
 
 	@Test
 	@Order(26)
+	public void updateLessonStatusesInCourse_givenCurrentTime_thenChangeStatuses() {
+		String currentUsername = "rav";
+		LocalDateTime now = LocalDateTime.parse("12.11.2022 13:00", getDateTimeFormatter());
+		Long courseId = 3L;
+		courseService.updateLessonStatusesInCourse(currentUsername, now, courseId);
+
+		for (Lesson lesson : getCourseDao().getById(courseId).getLessons()) {
+			if (!LessonStatus.DENIED.equals(lesson.getStatus())) {
+				if (lesson.getLessonDate().isAfter(now)) {
+					assertEquals(LessonStatus.NOT_STARTED, lesson.getStatus());
+				} else if (lesson.getLessonDate().equals(now) || lesson.getLessonDate().isBefore(now) && lesson.getLessonDate().plusMinutes(lesson.getDurability()).isAfter(now)) {
+					assertEquals(LessonStatus.IN_PROGRESS, lesson.getStatus());
+				} else {
+					assertEquals(LessonStatus.FINISHED, lesson.getStatus());
+				}
+			}
+		}
+	}
+
+	@Test
+	@Order(27)
 	public void denyCourse_givenCurrentUserIsTeacher_whenCourseDoesNotBelongToUser_thenAccessDeniedExceptionThrown() {
 		String currentUsername = "nadya";
 		Long courseId = 5L;
@@ -424,7 +446,7 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 	}
 
 	@Test
-	@Order(27)
+	@Order(28)
 	public void denyCourse_whenCourseContainsInProgressLesson_thenDenyLessonExceptionThrown() {
 		String currentUsername = "robby";
 		Long courseId = 5L;
@@ -434,7 +456,7 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 	}
 
 	@Test
-	@Order(28)
+	@Order(29)
 	public void denyCourse_givenCurrentUserIsAdmin_whenAllDataIsCorrect_thenSuccess() {
 		String currentUsername = "svetlana";
 		Long courseId = 5L;
@@ -446,7 +468,7 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 	}
 
 	@Test
-	@Order(29)
+	@Order(30)
 	public void denyCourse_givenCurrentUserIsTeacher_whenCourseHasNotStartedLessons_thenLessonsAreDenied() {
 		String currentUsername = "robby";
 		Long courseId = 5L;
@@ -469,7 +491,7 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 	}
 
 	@Test
-	@Order(30)
+	@Order(31)
 	public void denyCourse_givenCurrentUserIsTeacher_whenCourseDoesNotHaveNotStartedLessons_thenLessonsAreNotChanged() {
 		String currentUsername = "robby";
 		Long courseId = 5L;
@@ -492,7 +514,7 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 	}
 
 	@Test
-	@Order(31)
+	@Order(32)
 	public void denyCourse_whenCourseIsAlreadyDenied_thenDenyLessonExceptionThrown() {
 		String currentUsername = "robby";
 		Long courseId = 5L;
@@ -502,7 +524,7 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 	}
 
 	@Test
-	@Order(32)
+	@Order(33)
 	public void denyCourse_whenCourseIsAlreadyFinished_thenDenyLessonExceptionThrown() {
 		String currentUsername = "robby";
 		Long courseId = 5L;
@@ -512,7 +534,7 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 	}
 
 	@Test
-	@Order(33)
+	@Order(34)
 	public void deleteCourse_whenCourseContainsInProgressLesson_thenDenyLessonExceptionThrown() {
 		String currentUsername = "robby";
 		Long courseId = 5L;
@@ -527,7 +549,7 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 	}
 
 	@Test
-	@Order(34)
+	@Order(35)
 	public void deleteCourse_givenCurrentUserIsTeacher_whenCourseDoesNotBelongToUser_thenAccessDeniedExceptionThrown() {
 		String currentUsername = "lisa";
 		Long courseId = 5L;
@@ -536,7 +558,7 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 	}
 
 	@Test
-	@Order(35)
+	@Order(36)
 	public void deleteCourse_givenCurrentUserIsAdmin_whenCourseHasLessons_thenLessonsAreDeleted() {
 		String currentUsername = "svetlana";
 		Long courseId = 4L;
@@ -554,7 +576,7 @@ public class CourseServiceImplTest extends AbstractServiceTest {
 	}
 
 	@Test
-	@Order(36)
+	@Order(37)
 	public void deleteCourse_whenCourseIsNotFound_thenNotFoundExceptionThrown() {
 		String currentUsername = "svetlana";
 		Long courseId = 4L;

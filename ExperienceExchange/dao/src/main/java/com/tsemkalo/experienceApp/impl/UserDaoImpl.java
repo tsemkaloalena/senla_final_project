@@ -27,7 +27,10 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
 		Root<User> rootEntry = criteriaQuery.from(User.class);
-		CriteriaQuery<User> query = criteriaQuery.select(rootEntry).where(criteriaBuilder.equal(rootEntry.get("username"), username));
+		CriteriaQuery<User> query = criteriaQuery.select(rootEntry)
+				.where(
+						criteriaBuilder.equal(rootEntry.get("username"), username)
+				);
 		List<User> resultList = getEntityManager().createQuery(query).getResultList();
 		if (resultList.isEmpty()) {
 			return null;
@@ -41,7 +44,10 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Lesson> criteriaQuery = criteriaBuilder.createQuery(Lesson.class);
 		Root<Lesson> rootEntry = criteriaQuery.from(Lesson.class);
-		CriteriaQuery<Lesson> lessons = criteriaQuery.select(rootEntry).where(criteriaBuilder.equal(rootEntry.get("teacher").get("id"), teacherId));
+		CriteriaQuery<Lesson> lessons = criteriaQuery.select(rootEntry)
+				.where(
+						criteriaBuilder.equal(rootEntry.get("teacher").get("id"), teacherId)
+				);
 		return entityManager.createQuery(lessons).getResultList();
 	}
 

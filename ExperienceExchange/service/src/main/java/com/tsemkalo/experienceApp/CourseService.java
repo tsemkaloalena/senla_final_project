@@ -45,7 +45,9 @@ public interface CourseService extends AbstractService<Course> {
 
 	Double countSalary(String currentUsername, Long courseId);
 
-	void updateCourseStatuses(String currentUsername);
+	void updateCourseStatuses(String currentUsername, Long courseId);
+
+	void updateLessonStatusesInCourse(String currentUsername, LocalDateTime currentTime, Long courseId);
 
 	List<Lesson> getCourseLessons(Long courseId);
 }

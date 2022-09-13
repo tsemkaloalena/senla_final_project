@@ -1,5 +1,6 @@
 package com.tsemkalo.experienceApp.entities;
 
+import com.tsemkalo.experienceApp.exceptions.IncorrectDataException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,9 +24,15 @@ import java.util.List;
 @Getter
 @Setter
 public class User extends AbstractEntity implements UserDetails {
+	/**
+	 * Field for holding a unique username for authorization
+	 */
 	@Column
 	private String username;
 
+	/**
+	 * Field for holding a password for authorization
+	 */
 	@Column
 	private String password;
 
@@ -39,18 +46,28 @@ public class User extends AbstractEntity implements UserDetails {
 	@JoinColumn(name = "role_id")
 	private Role role;
 
+	/**
+	 * Used only if the role is a student. List for holding lessons to which the user is subscribed
+	 */
 	@OneToMany(mappedBy = "user")
 	private List<Subscription> subscriptions;
 
+	/**
+	 * List for holding all reviews written by this user
+	 */
 	@OneToMany(mappedBy = "user")
 	private List<Review> reviews;
 
-	public User(String username, String password, String name, String surname, Role role) {
+	@Column
+	private String email;
+
+	public User(String username, String password, String name, String surname, Role role, String email) {
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
 		this.role = role;
+		this.email = email;
 	}
 
 	@Override
@@ -60,6 +77,13 @@ public class User extends AbstractEntity implements UserDetails {
 			authorities.add(new SimpleGrantedAuthority(permission.getName().name()));
 		}
 		return authorities;
+	}
+
+	public void setEmail(String email) {
+		if (!email.contains("@") || !email.contains(".") || email.indexOf("@") > email.indexOf(".")) {
+			throw new IncorrectDataException(email + " is not correct email");
+		}
+		this.email = email;
 	}
 
 	@Override

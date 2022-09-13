@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import static com.tsemkalo.experienceApp.SecurityConstants.EXPIRATION_TIME;
@@ -36,6 +37,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		try {
 			credentials = new ObjectMapper().readValue(request.getInputStream(), User.class);
 		} catch (IOException exception) {
+			log.error(Arrays.toString(exception.getStackTrace()));
 			throw new AuthenticationCredentialsReadingException();
 		}
 		return authenticationManager.authenticate(

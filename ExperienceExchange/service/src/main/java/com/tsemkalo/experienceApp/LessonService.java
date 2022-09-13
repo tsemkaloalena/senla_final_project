@@ -52,5 +52,5 @@ public interface LessonService extends AbstractService<Lesson> {
 
 	Double countSalary(String currentUsername, Long lessonId);
 
-	void updateLessonStatuses(String currentUsername, LocalDateTime currentTime);
+	void updateLessonStatus(String currentUsername, LocalDateTime currentTime, Long lessonId);
 }

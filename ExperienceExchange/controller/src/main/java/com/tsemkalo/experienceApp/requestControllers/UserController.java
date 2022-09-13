@@ -1,13 +1,16 @@
 package com.tsemkalo.experienceApp.requestControllers;
 
+import com.tsemkalo.experienceApp.PersonalAccountDto;
 import com.tsemkalo.experienceApp.UserDto;
 import com.tsemkalo.experienceApp.UserService;
 import com.tsemkalo.experienceApp.entities.User;
+import com.tsemkalo.experienceApp.mappers.PersonalAccountMapper;
 import com.tsemkalo.experienceApp.mappers.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +26,23 @@ public class UserController {
 	@Autowired
 	private UserMapper userMapper;
 
+	@Autowired
+	private PersonalAccountMapper personalAccountMapper;
+
+	/**
+	 * @param userDto user data
+	 * @return signed up and added to database user
+	 */
 	@PostMapping("/sign_up")
-	public UserDto saveDto(@RequestBody UserDto userDto) {
+	public PersonalAccountDto saveDto(@RequestBody UserDto userDto) {
 		User user = userMapper.toEntity(userDto);
-		return userMapper.toDto(userService.saveUser(user));
+		return personalAccountMapper.toDto(userService.saveUser(user));
 	}
 
+	/**
+	 * @param userDto current password and new password
+	 * @return message about successful password change
+	 */
 	@PostMapping("/change_password")
 	public String changePassword(@RequestBody UserDto userDto) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -36,18 +50,34 @@ public class UserController {
 		return "Your password is successfully changed.";
 	}
 
+	/**
+	 * @param userDto current password and new username
+	 * @return new token
+	 */
 	@PostMapping("/change_username")
 	public String changeUsername(@RequestBody UserDto userDto) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return userService.changeUsername(authentication.getName(), userDto.getUsername(), userDto.getPassword());
 	}
 
+	/**
+	 * @param userDto user data that should be edited (email, name or surname)
+	 * @return edited user data
+	 */
 	@PostMapping("/edit")
-	public String editInfo(@RequestBody UserDto userDto) {
+	public PersonalAccountDto editInfo(@RequestBody UserDto userDto) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.getById(userService.editInfo(authentication.getName(), userDto.getName(), userDto.getSurname()));
-		return "Your new name is " + user.getName() + " " + user.getSurname();
+		User user = userService.getById(userService.editInfo(authentication.getName(), userMapper.toEntity(userDto)));
+		return personalAccountMapper.toDto(user);
 	}
 
-	// TODO show personal info
+	/**
+	 * @return personal account info (user data)
+	 */
+	@GetMapping("/personal_account")
+	public PersonalAccountDto getPersonalInfo() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) userService.loadUserByUsername(authentication.getName());
+		return personalAccountMapper.toDto(user);
+	}
 }

@@ -24,9 +24,14 @@ import java.util.Map;
 
 @ControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
-	@ExceptionHandler({LessonSubscriptionException.class, IncorrectDataException.class, IllegalArgumentException.class, IllegalStateException.class, AuthenticationCredentialsReadingException.class, IOException.class})
+	@ExceptionHandler({AuthenticationCredentialsReadingException.class, IOException.class})
+	public ResponseEntity<Object> handleInternalErrorException(RuntimeException exception, WebRequest request) {
+			return makeResponseEntity(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@ExceptionHandler({LessonSubscriptionException.class, IncorrectDataException.class, IllegalArgumentException.class, IllegalStateException.class})
 	public ResponseEntity<Object> handleIllegalArgumentException(RuntimeException exception, WebRequest request) {
-		return makeResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+			return makeResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler({NotFoundException.class})

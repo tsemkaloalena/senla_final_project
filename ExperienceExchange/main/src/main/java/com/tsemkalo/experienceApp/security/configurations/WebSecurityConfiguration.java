@@ -5,6 +5,7 @@ import com.tsemkalo.experienceApp.exceptions.SecurityConfigurationException;
 import com.tsemkalo.experienceApp.impl.UserServiceImpl;
 import com.tsemkalo.experienceApp.security.filters.JWTAuthenticationFilter;
 import com.tsemkalo.experienceApp.security.filters.JWTAuthorizationFilter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.util.Arrays;
 
+@Slf4j
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -42,7 +44,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			http.csrf().disable()
 					.cors().and()
 					.authorizeRequests()
-					.antMatchers(HttpMethod.POST, "/user/**").permitAll()
+					.antMatchers(HttpMethod.POST, "/user/sign_up").permitAll()
+					.antMatchers(HttpMethod.GET, "/themes").permitAll()
 					.anyRequest().authenticated()
 					.and()
 					.formLogin().permitAll()
@@ -57,6 +60,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.addFilter(new JWTAuthorizationFilter(authenticationManager(), userService))
 					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		} catch (Exception exception) {
+			log.error(Arrays.toString(exception.getStackTrace()));
 			throw new SecurityConfigurationException(Arrays.toString(exception.getStackTrace()));
 		}
 	}
@@ -66,6 +70,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		try {
 			authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
 		} catch (Exception exception) {
+			log.error(Arrays.toString(exception.getStackTrace()));
 			throw new SecurityConfigurationException(Arrays.toString(exception.getStackTrace()));
 		}
 	}

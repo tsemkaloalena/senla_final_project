@@ -19,7 +19,7 @@ public class UserMapper implements Mapper<User, UserDto> {
 		if (role != null) {
 			roleId = role.getId();
 		}
-		return new UserDto(user.getId(), user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), roleId);
+		return new UserDto(user.getId(), user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), roleId, user.getEmail());
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class UserMapper implements Mapper<User, UserDto> {
 		if (dto.getRoleId() != null) {
 			role = roleDao.getById(dto.getRoleId());
 		}
-		User user = new User(dto.getUsername(), dto.getPassword(), dto.getName(), dto.getSurname(), role);
+		User user = new User(dto.getUsername(), dto.getPassword(), dto.getName(), dto.getSurname(), role, dto.getEmail());
 		user.setId(dto.getId());
 		return user;
 	}
