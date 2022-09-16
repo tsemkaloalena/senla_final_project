@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ac787a53-aea3-4eb4-ad64-b5bd35855a9d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../ExperienceExchange/service/src/test/java/com/tsemkalo/experienceApp/impl/LessonServiceImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tsemkalo/senlaExperienceExchangeApp/configuration/security/JWTAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tsemkalo/senlaExperienceExchangeApp/configuration/security/JWTAuthorizationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/androidTest/java/com/example/travelcompanyapplication/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/AccountViewBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/FlightsViewBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/GuideViewBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/HotelsViewBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/db_controller/TravelCompanyContract.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/db_controller/TravelCompanyDBFiller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/db_controller/TravelCompanyDBHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/ui/AccountFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/ui/DownloadImageFromInternet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/ui/FlightsFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/ui/GuideFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/ui/HomeFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/java/com/example/travelcompanyapplication/ui/HotelsFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/drawable/ic_baseline_airplanemode_active_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/drawable/ic_baseline_arrow_downward_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/drawable/ic_baseline_hotel_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/drawable/ic_baseline_person_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/drawable/ic_baseline_weekend_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/drawable/ic_home_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/layout/fragment_account.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/layout/fragment_flights.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/layout/fragment_guide.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/layout/fragment_home.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/layout/fragment_hotels.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/menu/bottom_nav_menu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/navigation/mobile_navigation.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/values-night/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/main/res/values/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/src/test/java/com/example/travelcompanyapplication/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/local.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../c_plus_plus/Debug/c_plus_plus.exe" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="C:\mirea\TestCoverage" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectId" id="2Elye8ZBSwrO1PVctq6YnIMLnFq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\mirea\SenlaFinalProject" />
+      <recent name="C:\mirea\SenlaFinalProject\src\test\java\com\tsemkalo\senlaExperienceExchangeApp\service\impl" />
+      <recent name="C:\mirea\SenlaFinalProject\src\main\java\com\tsemkalo\senlaExperienceExchangeApp\service" />
+      <recent name="C:\mirea\SenlaFinalProject\src\main\resources" />
+      <recent name="C:\mirea\SenlaFinalProject\src\main\java\com\tsemkalo\senlaExperienceExchangeApp\security" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\mirea\SenlaFinalProject\db_scripts" />
+      <recent name="C:\mirea\SenlaFinalProject\diagrams" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.tsemkalo.senlaExperienceExchangeApp" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.senlaExperienceExchangeApp.Main" />
+      <module name="SenlaFinalProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tsemkalo.senlaExperienceExchangeApp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in SenlaFinalProject" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SenlaFinalProject" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.tsemkalo.senlaExperienceExchangeApp.service.impl in SenlaFinalProject" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SenlaFinalProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tsemkalo.senlaExperienceExchangeApp.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tsemkalo.senlaExperienceExchangeApp.service.impl" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SenlaFinalProject [clean,install]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="install" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.All in SenlaFinalProject" />
+        <item itemvalue="JUnit.com.tsemkalo.senlaExperienceExchangeApp.service.impl in SenlaFinalProject" />
+        <item itemvalue="Maven.SenlaFinalProject [clean,install]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ac787a53-aea3-4eb4-ad64-b5bd35855a9d" name="Changes" comment="" />
+      <created>1663184559880</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1663184559880</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/tsemkalo/senlaExperienceExchangeApp/configuration/security/JWTAuthorizationFilter.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/tsemkalo/senlaExperienceExchangeApp/configuration/security/JWTAuthorizationFilter.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SenlaFinalProject$All_in_SenlaFinalProject.ic" NAME="All in SenlaFinalProject Coverage Results" MODIFIED="1663263374249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

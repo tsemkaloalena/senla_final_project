@@ -80,7 +80,7 @@ public class User extends AbstractEntity implements UserDetails {
 	}
 
 	public void setEmail(String email) {
-		if (!email.contains("@") || !email.contains(".") || email.indexOf("@") > email.indexOf(".")) {
+		if (!email.contains("@") || !email.contains(".") || email.indexOf("@") > email.lastIndexOf(".")) {
 			throw new IncorrectDataException(email + " is not correct email");
 		}
 		this.email = email;
