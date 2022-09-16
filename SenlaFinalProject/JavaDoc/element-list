@@ -1,0 +1,15 @@
+com.tsemkalo.senlaExperienceExchangeApp
+com.tsemkalo.senlaExperienceExchangeApp.controller
+com.tsemkalo.senlaExperienceExchangeApp.dao
+com.tsemkalo.senlaExperienceExchangeApp.dao.entities
+com.tsemkalo.senlaExperienceExchangeApp.dao.impl
+com.tsemkalo.senlaExperienceExchangeApp.dto
+com.tsemkalo.senlaExperienceExchangeApp.dto.mappers
+com.tsemkalo.senlaExperienceExchangeApp.enums
+com.tsemkalo.senlaExperienceExchangeApp.exceptions
+com.tsemkalo.senlaExperienceExchangeApp.exceptions.exceptionHandlers
+com.tsemkalo.senlaExperienceExchangeApp.security
+com.tsemkalo.senlaExperienceExchangeApp.security.configurations
+com.tsemkalo.senlaExperienceExchangeApp.configuration.security.filters
+com.tsemkalo.senlaExperienceExchangeApp.service
+com.tsemkalo.senlaExperienceExchangeApp.service.impl
