@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<body>
+<div th:fragment="header_menu">
+    <nav class="menu">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="">Catalog</a>
+                <ul class="submenu">
+                    <li><a href="/courses">Courses</a></li>
+                    <li><a href="/lessons">Lessons</a></li>
+                </ul>
+            </li>
+            <div sec:authorize="isAuthenticated()">
+                <li th:if="${#authentication.principal.role.name == T(com.tsemkalo.senlaExperienceExchangeApp.enums.RoleType).TEACHER OR #authentication.principal.role.name == T(com.tsemkalo.senlaExperienceExchangeApp.enums.RoleType).STUDENT}">
+                    <a href="/schedule">Schedule</a></li>
+            </div>
+            <li><a href="/user"><img src="/images/account.png"></a></li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

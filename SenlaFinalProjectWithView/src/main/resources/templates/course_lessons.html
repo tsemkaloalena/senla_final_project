@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Lessons</title>
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<div class="content">
+    <h2>Lessons of course number <span th:text="${courseId}"></span></h2>
+    <p th:if="${lessons.empty}">
+        No lessons are available
+    </p>
+    <div th:each="lesson : ${lessons}">
+        <ul class="item">
+            <li><b>Theme: </b><span th:text="${lesson.theme}"></span></li>
+            <li><b>Subject: </b><span th:text="${lesson.subject}"></span></li>
+            <li><b>Lesson date: </b><span th:text="${lesson.lessonDate}"></span></li>
+            <li><b>Duration: </b><span th:text="${lesson.duration}"></span></li>
+            <li><b>Status: </b><span th:text="${lesson.status}"></span></li>
+            <li><b>Cost: </b><span th:text="${lesson.cost}"></span></li>
+            <li><b>Address: </b><span th:text="${lesson.address}"></span></li>
+            <li><b>Average rating: </b><span th:text="${lesson.averageRating}"></span></li>
+            <a class="button" href="">Watch reviews</a>
+        </ul>
+    </div>
+</div>
+
+<div th:replace="fragments/footer"></div>
+</body>
+
+</html>

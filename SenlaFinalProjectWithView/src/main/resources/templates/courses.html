@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Courses</title>
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<div class="content">
+    <h2>Courses</h2>
+    <form th:action="@{/courses/filter}" th:object="${searchFilter}" method="post" class="info_form">
+        <div class="filter_form">
+            <div>
+                <label for="from_date">Start searching date</label>
+                <input type="datetime-local" name="from_date" id="from_date" th:field="*{from}">
+            </div>
+            <div>
+                <label for="to_date">Finish searching date</label>
+                <input type="datetime-local" name="to_date" id="to_date" th:field="*{to}">
+            </div>
+            <div>
+                <label for="theme">Theme</label>
+                <input type="text" name="theme" id="theme" th:field="*{theme}">
+            </div>
+            <div>
+                <label for="teacher_name">Teacher name</label>
+                <input type="text" name="teacher_name" id="teacher_name" th:field="*{teacherName}">
+            </div>
+            <div>
+                <label for="teacher_surname">Teacher surname</label>
+                <input type="text" name="teacher_surname" id="teacher_surname" th:field="*{teacherSurname}">
+            </div>
+            <div>
+                <label for="min_rating">Minimal rating</label>
+                <input type="number" name="min_rating" id="min_rating" th:field="*{minRating}">
+            </div>
+            <div>
+                <input type="checkbox" name="online_type" id="online_type" th:field="*{online}" checked>
+                <label for="online_type">Online</label>
+            </div>
+            <div>
+                <label for="address">Address</label>
+                <input type="text" name="address" id="address" th:field="*{address}">
+            </div>
+            <div>
+                <input type="checkbox" name="free" id="free" th:field="*{free}">
+                <label for="free">Free</label>
+            </div>
+            <div>
+                <label for="min_cost">Minimal cost</label>
+                <input type="number" name="min_cost" id="min_cost" th:field="*{minCost}">
+            </div>
+            <div>
+                <label for="max_cost">Maximum cost</label>
+                <input type="number" name="max_cost" id="max_cost" th:field="*{maxCost}">
+            </div>
+            <div>
+                <input type="checkbox" name="individual" id="individual" th:field="*{individual}">
+                <label for="individual">Individual</label>
+            </div>
+            <div>
+                <label for="number_of_places">Number of places left</label>
+                <input type="number" name="number_of_places" id="number_of_places" th:field="*{numberOfPlaces}">
+            </div>
+        </div>
+        <div class="form_radio_buttons"><p>Status</p>
+            <input type="radio" name="status" id="not_started" value="NOT_STARTED" th:field="*{status}">
+            <label for="not_started">Not started</label>
+            <br>
+            <input type="radio" name="status" id="in_progress" value="IN_PROGRESS" th:field="*{status}">
+            <label for="in_progress">In progress</label>
+            <br>
+            <input type="radio" name="status" id="finished" value="FINISHED" th:field="*{status}">
+            <label for="finished">Finished</label>
+            <br>
+            <input type="radio" name="status" id="denied" value="DENIED" th:field="*{status}">
+            <label for="denied">Denied</label>
+        </div>
+        <input type="submit" value="Filter" class="button">
+    </form>
+    <p th:if="${courses.empty}">
+        No courses are available
+    </p>
+
+    <a sec:authorize="hasAuthority('ADD')" href="/courses/create" class="button">Create course</a>
+
+    <div th:each="course : ${courses}">
+        <ul class="item">
+            <li><b>Theme: </b><span th:text="${course.theme}"></span></li>
+            <li><b>Subject: </b><span th:text="${course.subject}"></span></li>
+            <li><b>First lesson date: </b><span class="date" th:text="${course.startDate}"></span></li>
+            <li><b>Last lesson date: </b><span class="date" th:text="${course.finishDate}"></span></li>
+            <li><b>Status: </b><span th:text="${course.status}"></span></li>
+            <li><b>Online type: </b><span th:text="${course.online}"></span></li>
+            <li><b>Average rating: </b><span th:text="${course.averageRating}"></span></li>
+            <a class="button" th:href="@{'/courses/' + ${course.id}}">Watch more</a>
+        </ul>
+    </div>
+</div>
+
+<div th:replace="fragments/footer"></div>
+<script>
+$(function() {
+    $(".date").datepicker({dateFormat:"dd.mm.yy"});
+});
+
+</script>
+</body>
+
+</html>

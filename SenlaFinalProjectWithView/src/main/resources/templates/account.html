@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Account</title>
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<div class="content">
+    <h2>User info</h2>
+    <ul class="item">
+        <li><b>Username: </b><span th:text="${user.username}"></span></li>
+        <li><b>Name: </b><span th:text="${user.name}"></span></li>
+        <li><b>Surname: </b><span th:text="${user.surname}"></span></li>
+        <li><b>Role: </b><span th:text="${user.role}"></span></li>
+        <li><b>Email: </b><span th:text="${user.email}"></span></li>
+        <div class="horizontal_buttons">
+            <a class="button" href="">Change password</a>
+            <a class="button2" href="">Edit info</a>
+        </div>
+    </ul>
+</div>
+<div th:replace="fragments/footer"></div>
+</body>
+</html>

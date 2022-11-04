@@ -1,0 +1,266 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body,
+html {
+	font-family: 'Roboto';
+	font-weight: 400;
+	font-size: 16px;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.menu {
+	width: 100%;
+	background-color: rgb(255, 221, 0);
+	padding: 10px 5% 10px 5%;
+	font-size: 20px;
+}
+.menu>ul {
+	list-style-type: none;  
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+    align-items: stretch;
+}
+.menu>ul>li {
+    flex-grow: 1;
+}
+.menu>ul>li:last-child {
+    flex-grow: 4;
+    text-align: right;
+}
+.menu>ul>li:hover a {
+	text-decoration: underline rgb(93, 190, 188);
+}
+.menu a {
+	text-decoration: none;
+	color: #000;
+    vertical-align: middle;
+    padding-bottom: 10px;
+}
+.menu img {
+    width: 30px;
+}
+.submenu {
+	list-style-type: none;
+    display: none;
+	position: absolute;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding: 10px 0;
+	background-color: rgb(93, 190, 188);
+}
+.submenu li {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.menu>ul>li:hover .submenu {
+	display: block;
+}
+.submenu:hover {
+	display: block;
+}
+.submenu li:hover {
+    background-color: rgb(255, 221, 0);
+}
+.footer {
+    width: 100%;
+	background-color: rgb(255, 221, 0);
+	padding: 10px 5% 10px 5%;
+	margin-top: auto;
+}
+
+
+.content {
+    margin: 10px 5%;
+}
+.content h2 {
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: underline rgb(255, 221, 0);
+    margin: 40px 0 20px 0;
+}
+.lesson-themes ul {
+    display: flex;
+    flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: flex-start;
+    margin: 20px 0;
+}
+.lesson-themes ul p {
+    display: block;
+    width: 100%;
+    /* padding-left: 10px; */
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+.lesson-themes ul li {
+    list-style: none;
+    padding: 5px 10px;
+    margin: 5px;
+    border: 2px solid rgb(255, 221, 0);
+    border-radius: 7px;
+}
+
+.home-buttons {
+    display: flex;
+	flex-direction: row;
+    gap: 10px;
+}
+.horizontal_buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.button {
+    font-size: 14px;
+    line-height: 1.5em;
+    display: block;
+    width: max-content;
+    text-decoration: none;
+    color: #000;
+    background-color: rgb(255, 221, 0);
+    padding: 10px 20px;
+    box-shadow: 5px 5px rgb(93, 190, 188);
+    border: none;
+    border-radius: 7px;
+}
+.button2 {
+    font-size: 14px;
+    line-height: 1.5em;
+    width: max-content;
+    text-decoration: none;
+    color: #000;
+    background-color: rgb(93, 190, 188);
+    padding: 10px 20px;
+    box-shadow: 5px 5px rgb(255, 221, 0);
+    border: none;
+    border-radius: 7px;
+}
+.item {
+    list-style: none;
+    line-height: 1.5em;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid rgb(255, 221, 0);
+    border-radius: 7px;
+}
+.button_item {
+    text-decoration: none;
+    color: #000;
+}
+.button_item ul {
+    list-style: none;
+    cursor: pointer;
+}
+.button_item:hover {
+    background-color: rgb(172, 215, 224);
+}
+.item .button {
+    margin: 10px 0;
+}
+.item .button2 {
+    margin: 10px 0;
+}
+.item li span {
+    font-weight: 500;
+}
+
+.info_form {
+    margin-bottom: 50px;
+}
+.info_form div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: stretch;
+    gap: 10px;
+    margin: 20px 0;
+}
+.info_form .form_radio_buttons {
+    display: block;
+}
+.info_form input[type="text"] {
+    padding: 5px;
+    border: 2px solid rgb(255, 221, 0);
+    border-radius: 7px;
+    width: 100%;
+    margin: 10px 0;
+}
+.info_form textarea {
+    padding: 5px;
+    border: 2px solid rgb(255, 221, 0);
+    border-radius: 7px;
+    width: 100%;
+    margin: 10px 0;
+}
+.info_form input[type="number"] {
+    padding: 5px;
+    border: 2px solid rgb(255, 221, 0);
+    border-radius: 7px;
+    width: 100%;
+    margin: 10px 0;
+}
+.info_form input[type="password"] {
+    padding: 5px;
+    border: 2px solid rgb(255, 221, 0);
+    border-radius: 7px;
+    width: 100%;
+    margin: 10px 0;
+}
+.info_form input[type="email"] {
+    padding: 5px;
+    border: 2px solid rgb(255, 221, 0);
+    border-radius: 7px;
+    width: 100%;
+    margin: 10px 0;
+}
+.info_form input[type="radio"] {
+    margin: 10px 0;
+}
+.info_form input[type="submit"] {
+    cursor: pointer;
+}
+.info_form input[type="datetime-local"] {
+    padding: 5px;
+    border: 2px solid rgb(255, 221, 0);
+    border-radius: 7px;
+    width: 100%;
+    margin: 10px 0;
+}
+.info_form p {
+    margin: 5px 0;
+    font-weight: 500;
+}
+.info_form label {
+    white-space: nowrap;
+}
+.info_form input:disabled {
+    background-color: rgb(172, 215, 224);
+}
+.small_items item {
+     width: auto;
+ }
+.small_items {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.filter_form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.filter_form div {
+    align-content: flex-start;
+    width: fit-content;
+    margin: 0;
+}
+.filter_form input {
+    width: auto;
+}

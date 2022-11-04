@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Log In</title>
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<div class="content">
+    <h2>Log In</h2>
+    <form th:action="@{/user/login}" th:object="${user}" method="post" class="info_form">
+        <div>
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" th:field="*{username}" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" th:field="*{password}" required>
+        </div>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <input type="submit" value="Log In" class="button">
+    </form>
+    <a href="/user/sign_up" class="button2">Create account</a>
+    <a href="/user/forgot_password" class="button2">Forgot password</a>
+</div>
+<div th:replace="fragments/footer"></div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Course</title>
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<div class="content">
+    <h2>Course</h2>
+    <p th:if="${message != null}" th:text="${message}"></p>
+    <ul class="item">
+        <li><b>Theme: </b><span th:text="${course.theme}"></span></li>
+        <li><b>Subject: </b><span th:text="${course.subject}"></span></li>
+        <li><b>First lesson date: </b><span class="date" th:text="${course.startDate}"></span></li>
+        <li><b>Last lesson date: </b><span class="date" th:text="${course.finishDate}"></span></li>
+        <li><b>Status: </b><span th:text="${course.status}"></span></li>
+        <li><b>Online type: </b><span th:text="${course.online}"></span></li>
+        <li><b>Address: </b><span th:text="${course.address}"></span></li>
+        <li><b>Teacher: </b><span th:text="${teacher.name} + ' ' + ${teacher.surname}"></span></li>
+        <li><b>Individual: </b><span th:text="${course.individual}"></span></li>
+        <li><b>Cost: </b><span th:text="${course.cost}"></span></li>
+        <li><b>Average rating: </b><span th:text="${course.averageRating}"></span></li>
+        <li><b>Description: </b><span th:text="${course.description}"></span></li>
+
+        <div class="horizontal_buttons">
+            <a class="button" href="">Watch reviews</a>
+            <a class="button" th:href="@{'/courses/' + ${course.id} + '/lessons'}">Watch lessons of this course</a>
+        </div>
+        <div th:if="${#authentication.getName() == teacher.username}" class="horizontal_buttons">
+            <a sec:authorize="hasAuthority('EDIT')" class="button2" th:href="@{'/courses/' + ${course.id} + '/edit'}">Edit
+                course</a>
+            <form sec:authorize="hasAuthority('DELETE')" th:action="@{'/courses/' + ${course.id}}" method="DELETE">
+                <input type="submit" value="Delete course" class="button2">
+            </form>
+            <form th:if="${course.status != T(com.tsemkalo.senlaExperienceExchangeApp.enums.LessonStatus).DENIED}"
+                  sec:authorize="hasAuthority('EDIT')" th:action="@{'/courses/' + ${course.id} + '/deny'}"
+                  method="POST">
+                <input type="submit" value="Deny course" class="button2">
+            </form>
+        </div>
+        <form sec:authorize="hasAuthority('SUBSCRIBE')" th:if="${subscribed}"
+              th:action="@{'/courses/' + ${course.id} + '/unsubscribe'}" method="POST">
+            <input type="submit" value="Unsubscribe course" class="button2">
+        </form>
+        <form sec:authorize="hasAuthority('SUBSCRIBE')" th:if="${!subscribed}"
+              th:action="@{'/courses/' + ${course.id} + '/subscribe'}" method="POST">
+            <input type="submit" value="Subscribe course" class="button2">
+        </form>
+    </ul>
+</div>
+<div th:replace="fragments/footer"></div>
+<script>
+$(function() {
+    $(".date").datepicker({dateFormat:"dd.mm.yy"});
+});
+
+</script>
+</body>
+
+</html>

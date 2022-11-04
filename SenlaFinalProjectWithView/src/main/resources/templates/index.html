@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+	<title>Home</title>
+
+</head>
+
+<body>
+	<div th:replace="fragments/header"></div>
+
+	<div class="content">
+		<h2>Find your experience</h2>
+		<div class="home-buttons">
+			<a class="button" href="/courses">Look for courses</a>
+			<a class="button" href="/lessons">Look for lessons</a>
+		</div>
+
+		<h2>Themes</h2>
+		<div class="lesson-themes" th:each="entry, stats : ${themes}" th:with="subject_themes=${entry.value}">
+			<ul>
+				<p th:text="${entry.key}"></p>
+				<li th:each="subject : ${subject_themes}" th:text="${subject}"></li>
+			</ul>
+		</div>
+	</div>
+
+	<div th:replace="fragments/footer"></div>
+</body>
+</html>
