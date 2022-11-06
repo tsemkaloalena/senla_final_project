@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-@DynamicUpdate
 public class LessonDaoImpl extends CatalogDaoImpl<Lesson> implements LessonDao {
 	@Override
 	public Class<Lesson> getEntityClass() {

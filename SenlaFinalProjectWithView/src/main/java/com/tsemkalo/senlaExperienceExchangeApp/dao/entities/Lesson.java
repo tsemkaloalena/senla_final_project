@@ -6,6 +6,7 @@ import com.tsemkalo.senlaExperienceExchangeApp.exceptions.IncorrectDataException
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,6 +27,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@DynamicUpdate
 public class Lesson extends AbstractEntity {
 	/**
 	 * Theme field

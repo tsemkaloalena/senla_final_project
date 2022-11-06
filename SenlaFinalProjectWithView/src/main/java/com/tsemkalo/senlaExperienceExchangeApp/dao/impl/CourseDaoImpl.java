@@ -20,7 +20,6 @@ import java.util.List;
 
 
 @Component
-@DynamicUpdate
 public class CourseDaoImpl extends CatalogDaoImpl<Course> implements CourseDao {
 	@Override
 	public Class<Course> getEntityClass() {

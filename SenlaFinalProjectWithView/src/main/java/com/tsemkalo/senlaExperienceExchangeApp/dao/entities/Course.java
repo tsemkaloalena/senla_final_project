@@ -5,6 +5,7 @@ import com.tsemkalo.senlaExperienceExchangeApp.enums.OnlineType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,6 +25,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@DynamicUpdate
 public class Course extends AbstractEntity {
 	/**
 	 * Theme field

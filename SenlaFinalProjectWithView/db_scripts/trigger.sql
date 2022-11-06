@@ -2,10 +2,10 @@ USE experience_exchange_db;
 
 DELIMITER $$
 CREATE DEFINER=root@localhost TRIGGER lesson_INSERT
-AFTER INSERT
-ON lessons FOR EACH ROW
+BEFORE INSERT
+ON experience_exchange_db.lessons FOR EACH ROW
 BEGIN
-	UPDATE courses SET courses.finish_date = date_add(new.lesson_date, interval new.duration minute)
+	UPDATE experience_exchange_db.courses SET courses.finish_date = date_add(new.lesson_date, interval new.duration minute)
 		WHERE courses.id = new.course_id AND
 			courses.finish_date < date_add(new.lesson_date, interval new.duration minute)
             OR courses.finish_date is null;
